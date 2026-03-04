@@ -1,10 +1,94 @@
-/* Copy the style from the original inline style block */
-.modal-overlay { background: rgba(0,0,0,0.5); }
-.sidebar { transition: transform 0.3s ease; }
-.sidebar-open { transform: translateX(0); }
-.sidebar-closed { transform: translateX(-100%); }
-.message-user { background: black; color: white; }
-.message-ai { background: #e5e5e5; color: black; }
-.typing-indicator::after { content: '...'; animation: dots 1.5s steps(4, end) infinite; }
-@keyframes dots { 0%,20% { content: ''; } 40% { content: '.'; } 60% { content: '..'; } 80%,100% { content: '...'; } }
-.error-banner { background: #fee; color: #c00; padding: 0.5rem; text-align: center; border-bottom: 1px solid #faa; }
+/* Smooth transitions & animations */
+* {
+    transition: background-color 0.2s ease, transform 0.2s ease, opacity 0.2s ease;
+}
+
+/* Sidebar slide */
+.sidebar {
+    transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+.sidebar-open {
+    transform: translateX(0);
+}
+.sidebar-closed {
+    transform: translateX(-100%);
+}
+
+/* Message bubbles */
+.message-enter {
+    animation: slideIn 0.3s ease forwards;
+}
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Typing indicator */
+.typing-indicator::after {
+    content: '...';
+    animation: dots 1.5s steps(4, end) infinite;
+    display: inline-block;
+    width: 0;
+}
+@keyframes dots {
+    0%, 20% { content: ''; }
+    40% { content: '.'; }
+    60% { content: '..'; }
+    80%, 100% { content: '...'; }
+}
+
+/* Modal overlay fade */
+.modal-overlay {
+    background: rgba(0,0,0,0.5);
+    animation: fadeIn 0.2s ease;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Button hover effects */
+button:not(:disabled) {
+    transition: transform 0.2s ease, background-color 0.2s ease;
+}
+button:not(:disabled):hover {
+    transform: scale(1.02);
+}
+
+/* Chat list item hover */
+.chat-item {
+    transition: background-color 0.2s ease;
+}
+.chat-item:hover {
+    background-color: #f3f4f6;
+}
+
+/* Delete button fade in */
+.delete-btn {
+    opacity: 0;
+    transition: opacity 0.2s ease;
+}
+.chat-item:hover .delete-btn {
+    opacity: 1;
+}
+
+/* Scrollbar styling */
+::-webkit-scrollbar {
+    width: 6px;
+}
+::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 3px;
+}
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
